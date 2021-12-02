@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
         stagePoint = 0;
 
         UIStage.text = "STAGE " + (stageIndex+1);
+        player.transform.position = resetPos;
         }
         else{       // 게임 클리어
             Time.timeScale = 0; // 시간을 멈춤
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
         if(stagePoint<0)
             stagePoint = 0;
 
-        if(player.transform.position.y < -30){
+        if(player.transform.position.y < -5){
             player.transform.position = new Vector2(resetPos.x, resetPos.y);
         }
     }

@@ -61,8 +61,8 @@ public class Player : MonoBehaviour
     void Awake()
     {
         controllable = true;
-        maxSpeed = 5;
-        jumpPower = 20;
+        maxSpeed = 10;
+        jumpPower = 30;
      //  h = 0;
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 
         if(Input.GetButtonUp("Horizontal")){
             // stop speed
-            rigid.velocity = new Vector2(0.5f * rigid.velocity.normalized.x, rigid.velocity.y);
+            rigid.velocity = new Vector2(3f * rigid.velocity.normalized.x, rigid.velocity.y);
         }
 
         // 방향전환
