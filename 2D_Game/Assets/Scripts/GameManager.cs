@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] Vector2 resetPos;
 
+    [SerializeField] AudioSource audiosource;
+
     // Game UI
     public Image[] UIHealth;
     public Text UIPoint;
@@ -23,9 +25,24 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] Stages;     // stage들을 관리함
 
+    public AudioClip audioDie;
+
+    public void PlaySound(string action){
+        switch(action){
+            case "DIE":
+                audiosource.clip = audioDie;
+                audiosource.Play();
+                break;
+            default:
+                break;
+        }
+    }
+
     void Start(){
        // player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         resetPos = new Vector2(player.transform.position.x, player.transform.position.y);
+        audiosource = GetComponent<AudioSource>();
+        
     }
     
     void Update(){
@@ -59,7 +76,8 @@ public class GameManager : MonoBehaviour
         if(stagePoint<0)
             stagePoint = 0;
 
-        if(player.transform.position.y < -5){
+    // 추락 판정
+        if(player.transform.position.y < -10){
             player.transform.position = new Vector2(resetPos.x, resetPos.y);
         }
     }

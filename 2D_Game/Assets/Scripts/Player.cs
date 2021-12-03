@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Animator animator;
     [SerializeField] bool controllable;         // 플레이어 조작권한 여부
+    
 
     // Sound
     public AudioClip audioJump;
@@ -27,7 +28,7 @@ public class Player : MonoBehaviour
     AudioSource audioSource;
     
      // Sound를 상황마다 재생하기 위한 것
-    void PlaySound(string action){
+    public void PlaySound(string action){
         switch(action){
             case "JUMP":
                 audioSource.clip = audioJump;
@@ -119,15 +120,15 @@ public class Player : MonoBehaviour
 
         // 레이케스트
         // Landing Platform
-         //Debug.DrawRay(rigid.position, Vector3.down, new Color(0,1,0)); // 그냥 시각적으로 scene에 ray가 보이도록 그려주는것
+        Debug.DrawRay(rigid.position, Vector3.down, new Color(0,1,0)); // 그냥 시각적으로 scene에 ray가 보이도록 그려주는것
         // Gizmos.DrawWireCube(rigid.position, new Vector3(1, 0.05f,0));
         // 레이캐스트 히트
-       // RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));   // rayHit에 맞은 오브젝트에 대한 정보, 4번째인자는 레이어마스크 = 이것에 대한 충돌만 감지하겠다
+        RaycastHit2D rayHit_2 = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));   // rayHit에 맞은 오브젝트에 대한 정보, 4번째인자는 레이어마스크 = 이것에 대한 충돌만 감지하겠다
         RaycastHit2D rayHit = Physics2D.BoxCast(new Vector2(rigid.position.x, rigid.position.y), new Vector2(0.8f, 1f), 0f, Vector2.down, 0.1f, LayerMask.GetMask("Platform"));
 
        if(rigid.velocity.y <= 0.2){
-            if(rayHit.collider != null){ // 안맞으면 null 맞으면 collider 정보가 들어가있다
-            // if(rayHit.distance < 0.5f){ // 거리가 0.5f 미만이면 ( 중앙에서 ray가 시작하므로 0.5 , 캐릭터크기는 1픽셀이다, 단 콜라이더 기준)
+            if(rayHit.collider != null || rayHit_2.collider != null){ // 안맞으면 null 맞으면 collider 정보가 들어가있다
+            // if(rayHit_2.distance < 0.5f){ // 거리가 0.5f 미만이면 ( 중앙에서 ray가 시작하므로 0.5 , 캐릭터크기는 1픽셀이다, 단 콜라이더 기준)
                    // Debug.Log(rayHit.collider.name);
                     animator.SetBool("isJumping",false);
               }//else animator.SetBool("isJumping",true);
@@ -144,9 +145,13 @@ public class Player : MonoBehaviour
                 // Point
                 
             }
-            else
-                OnDamaged(collision.transform.position);
-
+            else{
+                if(collision.gameObject.name.Contains("Spike")){    // 부딪힌게 Spike라면
+                    
+                    gameManager.Restart();                          // 재시작
+                }
+                else OnDamaged(collision.transform.position);
+            }
         }
     }
 
