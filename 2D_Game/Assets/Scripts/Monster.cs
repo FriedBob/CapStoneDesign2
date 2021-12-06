@@ -29,12 +29,12 @@ public class Monster : MonoBehaviour
     void FixedUpdate()
     {
         // 기본이동
-        rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
+        rigid.velocity = new Vector2(nextMove, rigid.velocity.y );
 
         // Platform Check
         Vector2 frontVec = new Vector2((float)rigid.position.x + (float)nextMove/2, rigid.position.y); // 자기보다 nexMove/2 픽셀만큼 앞에 그려지게
         Debug.DrawRay(frontVec, Vector3.down, new Color(0,1,0));
-        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Platform"));
+        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 2, LayerMask.GetMask("Platform"));
         if(rayHit.collider == null && isLive){        // 몬스터 앞에 그려진 레이가 바닥에 충돌하지 않을경우 진행경로를 바꾸게
             Turn();
         }
