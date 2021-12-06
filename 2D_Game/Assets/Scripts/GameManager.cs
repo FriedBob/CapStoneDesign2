@@ -78,7 +78,8 @@ public class GameManager : MonoBehaviour
 
     // 추락 판정
         if(player.transform.position.y < -10){
-            player.transform.position = new Vector2(resetPos.x, resetPos.y);
+            //player.transform.position = new Vector2(resetPos.x, resetPos.y);
+            Restart();
         }
     }
 
