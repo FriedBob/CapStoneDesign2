@@ -12,6 +12,9 @@ public class Monster : MonoBehaviour
 
     [SerializeField] BoxCollider2D collider2d;
     [SerializeField] bool isLive;
+    [SerializeField] bool isNotFalling;
+
+    [SerializeField] Vector2 resetPosition;
 
     void Awake()
     {
@@ -19,7 +22,10 @@ public class Monster : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         collider2d = GetComponent<BoxCollider2D>();
+        resetPosition = transform.position; // 시작위치
         isLive = true;
+        isNotFalling = true;
+
         Think();
 
         Invoke("Think", 5); //5초뒤에 Think 함수 호출
@@ -31,11 +37,28 @@ public class Monster : MonoBehaviour
         // 기본이동
         rigid.velocity = new Vector2(nextMove, rigid.velocity.y );
 
+        // 낙하리셋
+        if(resetPosition.y - transform.position.y > 20){
+            isNotFalling = false;
+            transform.position = resetPosition;
+            rigid.velocity = new Vector2(rigid.velocity.x, 0);
+            CancelInvoke();
+            nextMove = 0;
+            animator.SetInteger("WalkSpeed", nextMove);
+
+            /*if(resetPosition.y - transform.position.y < 0){
+                transform.position = new Vector2(transform.position.x, transform.position.y+1);
+                rigid.velocity = new Vector2(rigid.velocity.x, 1);
+                rigid.AddForce(new Vector2(0,5),ForceMode2D.Impulse);
+                rigid.gravityScale = -1;
+            }*/ //오류로 비활성화
+        }
+
         // Platform Check
         Vector2 frontVec = new Vector2((float)rigid.position.x + (float)nextMove/2, rigid.position.y); // 자기보다 nexMove/2 픽셀만큼 앞에 그려지게
         Debug.DrawRay(frontVec, Vector3.down, new Color(0,1,0));
         RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 2, LayerMask.GetMask("Platform"));
-        if(rayHit.collider == null && isLive){        // 몬스터 앞에 그려진 레이가 바닥에 충돌하지 않을경우 진행경로를 바꾸게
+        if(rayHit.collider == null && isLive && isNotFalling){        // 몬스터 앞에 그려진 레이가 바닥에 충돌하지 않을경우 진행경로를 바꾸게
             Turn();
         }
     }
