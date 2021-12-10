@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
             else{
                 if(collision.gameObject.name.Contains("Spike")){    // 부딪힌게 Spike라면
                     
-                    gameManager.Restart();                          // 재시작
+                    gameManager.SemiRestart();                          // 재시작
                 }
                 else OnDamaged(collision.transform.position);
             }

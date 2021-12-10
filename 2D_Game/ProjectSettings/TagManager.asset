@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Item
   - Goal
+  - GameManager
+  - Stage
   layers:
   - Default
   - TransparentFX

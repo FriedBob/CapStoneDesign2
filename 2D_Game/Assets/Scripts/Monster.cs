@@ -16,8 +16,11 @@ public class Monster : MonoBehaviour
 
     [SerializeField] Vector2 resetPosition;
 
+    //[SerializeField] public GameManager gameManager;
+
     void Awake()
     {
+        //gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
