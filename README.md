@@ -4,3 +4,8 @@
 
 
 Note : 유니티 내에 적용중인 일부 변수들이 library를 같이 commit 하지 않을경우 값이 초기화되어 정상적으로 작동하지 않는 문제가 존재합니다, 따라서 library도 같이 commit 하였으나 git LFS 이슈로 인해 git에서 clone한 순수 코드로는 정상적인 동작이 되지 않을 수 있어 프로젝트 종료 후 자체 파일을 별도로 재업로드할 예정입니다.
+
+
+https://github.com/FriedBob/CapstoneDesign2_backup
+# 코드를 다운받거나 프로젝트를 다운받으시려면 위의 링크에서 받아 주세요 
+# 현재 리포지토리에는 일부 오류가 있습니다
