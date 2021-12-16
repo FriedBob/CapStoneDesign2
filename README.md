@@ -8,4 +8,4 @@ Note : 유니티 내에 적용중인 일부 변수들이 library를 같이 commi
 
 https://github.com/FriedBob/CapstoneDesign2_backup
 # 코드를 다운받거나 프로젝트를 다운받으시려면 위의 링크에서 받아 주세요 
-# 현재 리포지토리에는 일부 오류가 있습니다
+# 현재 리포지토리에는 오류가 있습니다
